@@ -44,9 +44,7 @@
       <div class="ui fluid selection dropdown">
         <input type="hidden" name="subtitle" />
         <i class="dropdown icon"></i>
-        <div class="default text">
-          Subtitle Language
-        </div>
+        <script>translateWrite("Subtitle Language")</script>
       </div>
     </div>
   </div>
@@ -91,7 +89,7 @@
               ${translate("Awaiting Login Request")}
             </div>
           </div>
-    
+
           <div class="row">
             <div class="ten wide column">
               <h2 class="ui icon grey login header">
@@ -104,15 +102,15 @@
           <div class="row">
             <div class="ten wide column">
               <form class="ui form">
-                <div class="field">                   
+                <div class="field">
                   <div class="ui fluid label checkbox">
                     <input type="checkbox" name="business" id="business">
                     <label for="business">${translate("Udemy Business")} ?</label>
                   </div>
                 </div>
                 <div class="field">
-                  <input type="text" id="subdomain" name="subdomain" 
-                         placeholder="${translate("Udemy Business Name")}" 
+                  <input type="text" id="subdomain" name="subdomain"
+                         placeholder="${translate("Udemy Business Name")}"
                          style="display: none">
                 </div>
               </form>
@@ -135,10 +133,10 @@
 
         </div>
 
-        <div class="ui dashboard">    
+        <div class="ui dashboard">
           <div class="ui logout dimmer">
             <div class="ui big text loader">${translate("Logging Out")}</div>
-          </div>  
+          </div>
           <div class="ui courses dimmer">
             <div class="ui big text loader">${translate("Loading Courses")}</div>
           </div>
@@ -191,7 +189,7 @@
               <div class="ui divided unstackable courses items attached segment"></div>
             </div>
 
-            <div class="ui settings section"> 
+            <div class="ui settings section">
               <form class="ui form">
                 <h5 class="ui top attached  header">
                   <i class="ui download icon"></i> ${translate("Download Settings")}
@@ -205,7 +203,7 @@
                         <i class="folder icon"></i>
                       </label>
                     </div>
-                  </div>         
+                  </div>
                   <div class="field">
                     <div class="ui checkbox">
                       <input type="checkbox" name="enabledownloadstartend">
@@ -224,7 +222,7 @@
                   </div>
 
                   <div class="ui  divider"></div>
-                  
+
                   <div class="field">
                     <div class="ui checkbox">
                       <input type="checkbox" name="skipattachments">
@@ -304,17 +302,17 @@
 
             </div>
 
-            <div class="ui about section">   
+            <div class="ui about section">
               <div class="ui segment">
                 <h4 class="ui center aligned icon header">
                   <!-- <i class="grey file code outline icon"></i> -->
-                  <!-- <i class="grey download icon"></i> -->                  
+                  <!-- <i class="grey download icon"></i> -->
                   <img src="./assets/images/logo64.png" style="height: 64px; width: 64px"/>
                   <br>
                   v${appVersion}
                 </h4>
                 <button class="ui tiny fluid basic check-updates button">
-                  ${translate("Check for updates")} - (official version)
+                  ${translate("Check for updates")} - (${translate("official version")})
                 </button>
 
                 <h3 class="ui header">${translate("Links")}</h3>
@@ -358,7 +356,7 @@
                     </div>
                   </div>
                 </div>
-                            
+
                 <h3 class="ui header">${translate("Development")}</h3>
                 <div class="ui relaxed divided list">
                   <div class="item">
@@ -376,8 +374,8 @@
                     </div>
                   </div>
                 </div>
-                            
-                <h3 class="ui header">${translate("Donate")}</h3>                            
+
+                <h3 class="ui header">${translate("Donate")}</h3>
                 <p>
                   ${translate(
                     "Udeler is free and without any ads. If you appreciate that, please consider donating to the Developer."

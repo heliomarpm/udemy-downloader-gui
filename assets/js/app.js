@@ -90,14 +90,14 @@ function htmlCourseCard(course, showDismiss = false) {
   if (!course.completed) { course.completed = false; }
   course.infoDownloaded = "";
   course.encryptedVideos = 0;
-  
+
   const history = getDownloadHistory(course.id);
   if (history) {
     course.infoDownloaded = translate((history?.completed ? "Download completed in" : "In the download list since")) + " " + history?.date;
     course.completed = history?.completed ? true : course.completed;
     course.encryptedVideos = history?.encryptedVideos ?? 0;
   }
-  
+
   const tagDismiss = `<a class="ui basic red remove-download">${translate("Dismiss")}</a>`;
 
   return `
@@ -108,7 +108,7 @@ function htmlCourseCard(course, showDismiss = false) {
         <span class="value">0</span>
         <span class="download-unit"> KB/s</span>
       </div>
-     
+
       <div class="ui tiny image">
         <div class="ui red left corner label icon-encrypted">
           <i class="lock icon"></i>
@@ -194,13 +194,13 @@ $(".ui.dashboard .content").on("click", ".load-more.button", function() {
         if (course.completed) {
           resetCourse($course, $course.find(".download-success"), false);
         } else {
-          
+
           if (course.encryptedVideos == 0) {
             $course.find(".icon-encrypted").hide()
           } else {
             $course.find(".icon-encrypted").show()
           }
-          $course.find(".info-downloaded").html(course.infoDownloaded);          
+          $course.find(".info-downloaded").html(course.infoDownloaded);
         }
       });
       if (!response.next) {
@@ -303,7 +303,7 @@ $(".ui.dashboard .content").on("click", ".download.button, .download-error", fun
         coursedata["name"] = $course.find(".coursename").text();
         coursedata["totallectures"] = 0;
         coursedata["encryptedVideos"] = 0;
-        
+
         var chapterindex = -1;
         var lectureindex = -1;
         var remaining = response.count;
@@ -369,10 +369,10 @@ $(".ui.dashboard .content").on("click", ".download.button, .download-error", fun
                     var type = "File";
                   }
                   else {
-                    var type = "Video";                    
+                    var type = "Video";
                     var qualities = [];
                     var qualitySrcMap = {};
-                    
+
                     const medias = response.asset.media_sources ?? response.asset.stream_urls.Video;
                     medias.forEach(function(val) {
                       if (val.label.toLowerCase() === "auto") return;
@@ -424,7 +424,7 @@ $(".ui.dashboard .content").on("click", ".download.button, .download-error", fun
                       caption.video_label in availableSubs
                         ? (availableSubs[caption.video_label] = availableSubs[caption.video_label] + 1)
                         : (availableSubs[caption.video_label] = 1);
-                      
+
                       coursedata["chapters"][chapterindex]["lectures"][lectureindex].caption[caption.video_label] = caption.url;
                     });
                   }
@@ -460,7 +460,7 @@ $(".ui.dashboard .content").on("click", ".download.button, .download-error", fun
                           if (!supplementary_assets_remaining) {
                             remaining--;
                             coursedata["totallectures"] += 1;
-                            
+
                             if (!remaining) {
                               if (Object.keys(availableSubs).length) {
                                 askForSubtitle(availableSubs, initDownload, $course, coursedata, defaultSubtitle);
@@ -476,7 +476,7 @@ $(".ui.dashboard .content").on("click", ".download.button, .download-error", fun
                   else {
                     remaining--;
                     coursedata["totallectures"] += 1;
-                    
+
                     if (!remaining) {
                       if (Object.keys(availableSubs).length) {
                         askForSubtitle(availableSubs, initDownload, $course, coursedata, defaultSubtitle);
@@ -502,7 +502,7 @@ $(".ui.dashboard .content").on("click", ".download.button, .download-error", fun
             };
             remaining--;
             coursedata["totallectures"] += 1;
-            
+
             if (!remaining) {
               if (Object.keys(availableSubs).length) {
                 askForSubtitle(availableSubs, initDownload, $course, coursedata, defaultSubtitle);
@@ -513,7 +513,7 @@ $(".ui.dashboard .content").on("click", ".download.button, .download-error", fun
             lectureindex++;
           } else {
             remaining--;
-            
+
             if (!remaining) {
               if (Object.keys(availableSubs).length) {
                 askForSubtitle(availableSubs, initDownload, $course, coursedata, defaultSubtitle);
@@ -669,7 +669,7 @@ function initDownload($course, coursedata, subtitle = "") {
     );
   }
 
-  function downloadLecture(chapterindex, lectureindex, num_lectures, chapter_name) {    
+  function downloadLecture(chapterindex, lectureindex, num_lectures, chapter_name) {
     if (downloaded == toDownload) {
       debugger;
       resetCourse($course, $course.find(".download-success"), autoRetry);
@@ -681,7 +681,7 @@ function initDownload($course, coursedata, subtitle = "") {
     }
 
     const lectureType = coursedata["chapters"][chapterindex]["lectures"][lectureindex]["type"].toLowerCase();
-    
+
     function dlStart(dl, typeVideo, callback) {
       // Change retry options to something more forgiving and threads to keep udemy from getting upset
       dl.setRetryOptions({
@@ -698,7 +698,7 @@ function initDownload($course, coursedata, subtitle = "") {
       let reStarted = 0;
 
       timer = setInterval(function() {
-        
+
         // Status:
         //   -3 = destroyed
         //   -2 = stopped
@@ -721,8 +721,8 @@ function initDownload($course, coursedata, subtitle = "") {
             }
             $download_speed_value.html(0);
             break;
-          
-          case 1:            
+
+          case 1:
           case -1:
             var stats = dl.getStats();
             var download_speed_and_unit = getDownloadSpeed(parseInt(stats.present.speed / 1000) || 0);
@@ -732,13 +732,13 @@ function initDownload($course, coursedata, subtitle = "") {
             //   parseInt(stats.present.speed / 1000) || 0
             // );
             $progressElemIndividual.progress("set percent", stats.total.completed);
-            
+
             if (dl.status === -1
               && dl.stats.total.size == 0
               && fs.existsSync(dl.filePath)
-            ) {              
+            ) {
               dl.emit("end");
-              clearInterval(timer);              
+              clearInterval(timer);
             }
             else if (dl.status === -1) {
               $.ajax({
@@ -754,10 +754,10 @@ function initDownload($course, coursedata, subtitle = "") {
                   resetCourse($course, $course.find(".download-error"), autoRetry);
                 }
               });
-              clearInterval(timer);              
+              clearInterval(timer);
             }
             break;
-          
+
           case 2:
             break;
           default:
@@ -774,7 +774,7 @@ function initDownload($course, coursedata, subtitle = "") {
         $pauseButton.removeClass("disabled");
       });
 
-      dl.on("end", function () {        
+      dl.on("end", function () {
         if (typeVideo && dl.meta.size < 20000) {
           $course.find('input[name="encryptedvideos"]').val(++coursedata.encryptedVideos);
           console.warn(`${coursedata.encryptedVideos} - encryptedVideos`, dl.filePath)
@@ -785,9 +785,9 @@ function initDownload($course, coursedata, subtitle = "") {
 
     function downloadAttachments(index, total_assets) {
       $progressElemIndividual.progress("reset");
-      
+
       const attachment = coursedata["chapters"][chapterindex]["lectures"][lectureindex]["supplementary_assets"][index];
-      
+
       var lectureQuality = attachment["quality"];
       var lastClass = $download_quality.attr("class").split(" ").pop();
 
@@ -833,9 +833,9 @@ function initDownload($course, coursedata, subtitle = "") {
           + attachment.name.trim()
           + (attachment.name.split(".").pop() == fileExtension ? "" : "." + fileExtension)
         );
-        
+
         const pathFileName = `${download_directory}/${course_name}/${chapter_name}/${lecture_name}`;
-        
+
         if (fs.existsSync(pathFileName + ".mtd") &&
            !fs.statSync(pathFileName + ".mtd").size
         ) {
@@ -866,10 +866,10 @@ function initDownload($course, coursedata, subtitle = "") {
       }
     }
 
-    function checkAttachment() {      
+    function checkAttachment() {
       $progressElemIndividual.progress("reset");
       const attachment = coursedata["chapters"][chapterindex]["lectures"][lectureindex]["supplementary_assets"]
-      
+
       if (attachment) {
         // order by name
         coursedata["chapters"][chapterindex]["lectures"][lectureindex]["supplementary_assets"].sort(dynamicSort("name"));
@@ -898,7 +898,7 @@ function initDownload($course, coursedata, subtitle = "") {
       $download_speed_value.html(0);
       var lecture_name = sanitize(
         lectureindex + 1
-        //zeroPad(lectureindex + 1, coursedata["chapters"][chapterindex]["lectures"].length) 
+        //zeroPad(lectureindex + 1, coursedata["chapters"][chapterindex]["lectures"].length)
         + ". "
         + coursedata["chapters"][chapterindex]["lectures"][lectureindex]["name"].trim()
         + ".vtt"
@@ -915,7 +915,7 @@ function initDownload($course, coursedata, subtitle = "") {
               fs.unlinkSync(pathFileName);
               checkAttachment();
           });
-        
+
           fs.createReadStream(pathFileName)
             .pipe(vtt2srt())
             .pipe(finalSrt);
@@ -932,7 +932,7 @@ function initDownload($course, coursedata, subtitle = "") {
       var download_this_sub = available[0] || Object.keys(caption)[0] || "";
       // Prefer non "[Auto]" subs (likely entered by the creator of the lecture.)
       if ( available.length > 1 ) {
-        for ( key in available ) {          
+        for ( key in available ) {
           if (
             available[key].indexOf("[Auto]") == -1
             || available[key].indexOf(`[${translate("Auto")}]`) == -1
@@ -943,7 +943,7 @@ function initDownload($course, coursedata, subtitle = "") {
         }
       }
 
-      // Per lecture: download maximum 1 of the language.        
+      // Per lecture: download maximum 1 of the language.
       var request = https.get(
         // coursedata["chapters"][chapterindex]["lectures"][lectureindex][
         //   "caption"
@@ -991,7 +991,7 @@ function initDownload($course, coursedata, subtitle = "") {
           "/" +
           sanitize(
             lectureindex + 1
-            //zeroPad(lectureindex + 1, coursedata["chapters"][chapterindex]["lectures"].length) 
+            //zeroPad(lectureindex + 1, coursedata["chapters"][chapterindex]["lectures"].length)
             + ". "
             + coursedata["chapters"][chapterindex]["lectures"][lectureindex]["name"].trim()
             + ".html"
@@ -1017,7 +1017,7 @@ function initDownload($course, coursedata, subtitle = "") {
     else {
       var lecture_name = sanitize(
         lectureindex + 1
-        //zeroPad(lectureindex + 1, coursedata["chapters"][chapterindex]["lectures"].length) 
+        //zeroPad(lectureindex + 1, coursedata["chapters"][chapterindex]["lectures"].length)
         + ". "
         + coursedata["chapters"][chapterindex]["lectures"][lectureindex]["name"].trim()
         + "."
@@ -1026,7 +1026,7 @@ function initDownload($course, coursedata, subtitle = "") {
 
       const pathFileName = `${download_directory}/${course_name}/${chapter_name}/${lecture_name}`;
 
-      if (fs.existsSync(pathFileName + ".mtd") && 
+      if (fs.existsSync(pathFileName + ".mtd") &&
          !fs.statSync(pathFileName + ".mtd").size
       ) {
         var dl = downloader.resumeDownload(pathFileName);
@@ -1122,7 +1122,7 @@ $(".about-sidebar").click(function() {
 });
 
 $(".logout-sidebar").click(function() {
-  prompt.confirm("Confirm Log Out?", function(ok) {
+  prompt.confirm(translate("Confirm Log Out?"), function(ok) {
     if (ok) {
       $(".ui.logout.dimmer").addClass("active");
       saveDownloads(false);
@@ -1177,12 +1177,12 @@ $(".ui.settings .form").submit(e => {
     $(e.target)
       .find('input[name="language"]')
       .val() || false;
-  
+
   var defaultSubtitle =
     $(e.target)
     .find('input[name="defaultSubtitle"]')
     .val() || "";
-  
+
   settings.set("download", {
     enableDownloadStartEnd: enableDownloadStartEnd,
     skipAttachments: skipAttachments,
@@ -1247,7 +1247,7 @@ function loadSettings() {
     .parent(".dropdown")
     .find(".default.text")
     .html(videoQuality || translate("Auto"));
-  
+
   var language = settingsCached.general.language;
   settingsForm.find('input[name="language"]')
     .val(language || "");
@@ -1262,7 +1262,7 @@ function loadSettings() {
   settingsForm.find('input[name="defaultSubtitle"]')
     .parent(".dropdown")
     .find(".defaultSubtitle.text")
-    .html(defaultSubtitle || "");    
+    .html(defaultSubtitle || "");
 }
 
 settingsForm.find('input[name="enabledownloadstartend"]').change(function () {
@@ -1298,7 +1298,7 @@ function handleResponse(response, keyword = "") {
   if (response.results.length) {
     $.each(response.results, function (index, course) {
       $course = $(htmlCourseCard(course));
-      $(".ui.dashboard .ui.courses.section .ui.courses.items").append($course);  
+      $(".ui.dashboard .ui.courses.section .ui.courses.items").append($course);
       if (course.completed) {
         resetCourse($course, $course.find(".download-success"), false);
       } else {
@@ -1307,7 +1307,7 @@ function handleResponse(response, keyword = "") {
         } else {
           $course.find(".icon-encrypted").show()
         }
-        $course.find(".info-downloaded").html(course.infoDownloaded);          
+        $course.find(".info-downloaded").html(course.infoDownloaded);
       }
     });
     if (response.next) {
@@ -1368,12 +1368,12 @@ function getDownloadHistory(courseId) {
     return undefined;
   } catch (error) {
     return undefined;
-  }  
+  }
 }
 
 function saveDownloads(quit) {
-  var downloadedCourses = [];  
-   
+  var downloadedCourses = [];
+
   var $downloads = $(".ui.downloads.section .ui.courses.items .ui.course.item").slice(0);
   if ($downloads.length) {
     $downloads.each(function(index, elem) {
@@ -1391,7 +1391,7 @@ function saveDownloads(quit) {
         var combinedProgress = 0;
         var completed = true;
       }
-      
+
       var course = {
         id: $elem.attr("course-id"),
         url: $elem.attr("course-url"),
@@ -1403,7 +1403,7 @@ function saveDownloads(quit) {
         progressStatus: $elem.find(".download-status .label").text(),
         encryptedVideos: $elem.find('input[name="encryptedvideos"]').val()
       };
-      
+
       downloadedCourses.push(course);
 
       addDownloadHistory(course.id, completed, course.encryptedVideos);
@@ -1425,7 +1425,7 @@ function removeCurseDownloads(courseId) {
   //   });
 
   var $downloads = $(".ui.downloads.section .ui.courses.items .ui.course.item").slice(0);
-  
+
   if ($downloads.length) {
     $downloads.each(function (index, elem) {
       $elem = $(elem);
@@ -1444,7 +1444,7 @@ function loadDownloads() {
     downloadedCourses.forEach(function (course) {
       $course = $(htmlCourseCard(course, true));
       $(".ui.downloads.section .ui.courses.items").append($course);
-        
+
       if (!course.completed) {
         $course.find(".individual.progress").progress({percent: course.individualProgress}).show();
         $course.find(".combined.progress").progress({ percent: course.combinedProgress }).show();
@@ -1452,8 +1452,8 @@ function loadDownloads() {
         $course.find(".info-downloaded").hide();
         $course.css("padding-bottom", "25px");
       }
-      else {        
-        $course.find(".info-downloaded").html(course.infoDownloaded).show(); 
+      else {
+        $course.find(".info-downloaded").html(course.infoDownloaded).show();
       }
       if (course.encryptedVideos == "0") {
         $course.find(".icon-encrypted").hide()
@@ -1516,15 +1516,15 @@ function askForSubtitle(availableSubs, initDownload, $course, coursedata, defaul
   //     value: key
   //   });
   // }
-  
+
   var languages = [];
   var totals = {};
   var languageKeys = {};
-  
+
   for (var key in availableSubs) {
     language = key.replace('[Auto]', '').replace(`[${translate("Auto")}]`,'').trim();
 
-    // default subtitle exists 
+    // default subtitle exists
     if (language === defaultSubtitle) {
       initDownload($course, coursedata, key);
       return;
@@ -1538,7 +1538,7 @@ function askForSubtitle(availableSubs, initDownload, $course, coursedata, defaul
 
     totals[language] += availableSubs[key];
     languageKeys[language].push(key);
-  }  
+  }
 
   // only a subtitle
   if (languages.length == 1) {
@@ -1730,6 +1730,6 @@ function dynamicSort(property) {
           return b[property].localeCompare(a[property]);
       }else{
           return a[property].localeCompare(b[property]);
-      }        
+      }
   }
 }
