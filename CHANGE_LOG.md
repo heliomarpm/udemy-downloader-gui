@@ -1,5 +1,8 @@
 # Change Log
 
+## Version 1.11.4
+* Features
+    - Add Floating Save Button in Config Section
 
 ## Version 1.11.3
 
