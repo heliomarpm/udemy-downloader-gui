@@ -84,5 +84,6 @@
   "Enumerate download with zero left": "",
   "Old version": "",
   "Using Password": "",
-  "Get Credentials": ""
+  "Get Credentials": "",
+  "Note: When the selected option is not available in the Udemy API, the highest quality available will be downloaded.": ""
 }

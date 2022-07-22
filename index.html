@@ -284,13 +284,15 @@
                     
                     <div class="field">
                       <label>${translate("Video Quality")}</label>
+                      <small style="color:#444;">${translate("Note: When the selected option is not available in the Udemy API, the highest quality available will be downloaded.")} </small>
                       <div class="ui fluid search selection dropdown">
                         <input type="hidden" name="videoquality">
                         <i class="dropdown icon"></i>
                         <div class="default text"></div>
                         <div class="menu">
-                          <div class="item" data-value="Auto">${translate("Auto")}</div>
+                          <!-- <div class="item" data-value="Auto">{translate("Auto")}</div> -->
                           <div class="item" data-value="Lowest">${translate("Lowest")}</div>
+                          <div class="item" data-value="144p">144p</div>
                           <div class="item" data-value="360p">360p</div>
                           <div class="item" data-value="480p">480p</div>
                           <div class="item" data-value="720p">720p</div>

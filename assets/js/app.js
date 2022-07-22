@@ -55,7 +55,7 @@ function loadDefaults() {
     autoRetry: false,
     downloadStart: false,
     downloadEnd: false,
-    videoQuality: "auto",
+    videoQuality: "highest",
     path: false,
     defaultSubtitle: "",
     seqZeroLeft: false,
@@ -1317,7 +1317,7 @@ $(".ui.settings .form").submit(e => {
   var autoRetry = $(e.target).find('input[name="autoretry"]')[0].checked ?? false;
   var downloadStart = parseInt($(e.target).find('input[name="downloadstart"]').val()) ?? false;
   var downloadEnd = parseInt($(e.target).find('input[name="downloadend"]').val()) ?? false;
-  var videoQuality = $(e.target).find('input[name="videoquality"]').val() ?? false;
+  var videoQuality = $(e.target).find('input[name="videoquality"]').val() ?? "Highest";
   var downloadPath = $(e.target).find('input[name="downloadpath"]').val() ?? false;
   var language = $(e.target).find('input[name="language"]').val() ?? false;
   var defaultSubtitle = $(e.target).find('input[name="defaultSubtitle"]').val() ?? false;
@@ -1373,7 +1373,7 @@ function loadSettings() {
   settingsForm.find('input[name="videoquality"]')
     .parent(".dropdown")
     .find(".default.text")
-    .html(videoQuality || translate("Auto"));
+    .html(videoQuality || translate("Highest"));
 
   var language = settingsCached.general.language;
   settingsForm.find('input[name="language"]').val(language || "");
