@@ -3,6 +3,7 @@
 ## Version 1.11.4
 * Features
     - Add Floating Save Button in Config Section
+    - Remove option Auto in video quality
 
 ## Version 1.11.3
 
