@@ -10,6 +10,7 @@ const vtt2srt = require("node-vtt-to-srt");
 const Downloader = require("mt-files-downloader");
 const https = require("https");
 const cookie = require("cookie");
+const path = require("path");
 
 const pageSize = 25;
 const msgDRMProtected = translate("Contains DRM protection and cannot be downloaded");
@@ -2133,7 +2134,7 @@ function paginate(array, page_size, page_number) {
 
 function getPathDownloadsSetting(courseName = "") {
   var courseName = courseName != "" ? "\\" + sanitize(courseName) : ""; //, { replacement: (s) => "? ".indexOf(s) > -1 ? "" : "-", }).trim() : "";
-  const download_directory = settingsCached.download.path || homedir + "\\Downloads";
+  const download_directory = settingsCached.download.path || path.join(homedir + "/Downloads");
 
   return `${download_directory}${courseName}`;
 }
