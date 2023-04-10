@@ -1307,7 +1307,7 @@ function initDownload($course, coursedata, subTitle = "") {
         );
 
         // $lecture_name.html(`${coursedata["chapters"][chapterindex].name}\\${coursedata["chapters"][chapterindex]["lectures"][lectureindex].name}`);
-        debugger;
+        // debugger;
         const skipLecture = settingsCached.download.downFiles == downloadFiles.OnlyAttachments;
 
         // if not stream
