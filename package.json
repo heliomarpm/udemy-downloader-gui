@@ -42,7 +42,7 @@
     "sanitize-filename": "^1.6.3"
   },
   "devDependencies": {
-    "electron": "11.5.0",
+    "electron": "22.3.25",
     "electron-builder": "^24.6.3",
     "electron-reload": "^2.0.0-alpha.1",
     "open": "^9.1.0",
