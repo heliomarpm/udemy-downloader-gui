@@ -32,7 +32,7 @@
     "sync:locales": "node ./sync-locales.js"
   },
   "dependencies": {
-    "@sentry/electron": "^4.24.0",
+    "@sentry/electron": "^5.7.0",
     "axios": "^1.7.7",
     "cookie": "^1.0.1",
     "dialogs": "^2.0.1",
