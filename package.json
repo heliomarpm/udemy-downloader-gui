@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@sentry/electron": "^4.24.0",
-    "axios": "^1.7.7",
+    "axios": "^1.7.8",
     "cookie": "^1.0.1",
     "dialogs": "^2.0.1",
     "electron-settings": "3.2.0",
