@@ -715,7 +715,13 @@ async function fetchCourseContent(courseId, courseName, courseUrl) {
 								lecture.quality = streams.minQuality;
 								break;
 							default:
-								lecture.quality = utils.isNumber(lecture.quality) ? lecture.quality : lecture.quality.slice(0, -1);
+								if (utils.isNumber(lecture.quality)) {
+									lecture.quality = lecture.quality; // Keep the number as is
+								} else if (typeof lecture.quality === "string") {
+									lecture.quality = lecture.quality.slice(0, -1); // Safely slice string
+								} else {
+									lecture.quality = null; // Or any default fallback value
+								}
 						}
 
 						if (!streams.sources[lecture.quality]) {
