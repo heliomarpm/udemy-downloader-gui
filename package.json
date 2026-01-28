@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "electron": "11.5.0",
-    "electron-builder": "^25.1.8",
+    "electron-builder": "^26.6.0",
     "electron-reload": "^2.0.0-alpha.1",
     "gh_deploy": "github:heliomarpm/gh_deploy",
     "prettier": "^3.4.2"
