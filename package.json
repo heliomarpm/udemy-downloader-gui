@@ -23,6 +23,8 @@
   "scripts": {
     "dev": "electron . --developer",
     "start": "electron .",
+    "start:auto": "node extract-token.js && npm start",
+    "extract-token": "node extract-token.js",
     "format": "prettier --write \"app/**/*.js\"",
     "postinstall": "electron-builder install-app-deps",
     "build": "electron-builder",
