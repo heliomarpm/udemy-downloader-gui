@@ -387,6 +387,20 @@ function loginWithAccessToken() {
 		ui.$subdomainField.val("www");
 	}
 
+	// Try to auto-load token from Chrome cookies
+	const { extractCookies } = require("../extract-token.js");
+	const cookies = extractCookies();
+	
+	if (cookies && cookies.access_token) {
+		const submain = ui.$subdomainField.val();
+		Settings.accessToken = cookies.access_token;
+		Settings.subDomain = submain.trim().length == 0 ? "www" : submain.trim();
+		console.log("Auto-loaded token from Chrome cookies");
+		checkLogin();
+		return;
+	}
+
+	// Fallback to manual prompt
 	dialogs.prompt("Access Token", (access_token) => {
 		if (access_token) {
 			const submain = ui.$subdomainField.val();
@@ -582,13 +596,50 @@ function renderCourses(response, isResearch = false) {
 	}
 }
 
+function loadCoursesFromFolder() {
+	const path = require("path");
+	const downloadDir = Settings.downloadDirectory();
+	
+	if (!fs.existsSync(downloadDir)) {
+		return [];
+	}
+
+	const folders = fs.readdirSync(downloadDir, { withFileTypes: true })
+		.filter(dirent => dirent.isDirectory())
+		.map(dirent => dirent.name);
+
+	const existingCourses = Settings.downloadedCourses || [];
+	const existingIds = new Set(existingCourses.map(c => c.id));
+	const loadedCourses = [...existingCourses];
+
+	folders.forEach(folderName => {
+		const folderPath = path.join(downloadDir, folderName);
+		const courseId = Date.now() + Math.random();
+		
+		if (!existingIds.has(courseId)) {
+			loadedCourses.push({
+				id: courseId,
+				title: folderName,
+				pathDownloaded: folderPath,
+				completed: true,
+				individualProgress: 100,
+				combinedProgress: 100,
+				progressStatus: "Downloaded",
+				encryptedVideos: 0
+			});
+		}
+	});
+
+	return loadedCourses;
+}
+
 async function renderDownloads() {
 	const $downloadsSection = $(".ui.downloads.section .ui.courses.items");
 	if ($downloadsSection.find(".ui.course.item").length) {
 		return;
 	}
 
-	const downloadedCourses = Settings.downloadedCourses || [];
+	const downloadedCourses = loadCoursesFromFolder();
 	if (!downloadedCourses.length) {
 		// if ($downloadsSection.find(".ui.yellow.message").length) {
 		//     return;
