@@ -134,7 +134,7 @@ Thank you to all the people who already contributed to Udeler ❤️!
 
 [![Contribuidores](https://contrib.rocks/image?repo=heliomarpm/udemy-downloader-gui)](https://github.com/heliomarpm/udemy-downloader-gui/graphs/contributors)
 
-###### Made with [contrib.rocks][https://contrib.rocks](https://contrib.rocks/image?repo=heliomarpm/udemy-downloader-gui)
+###### Made with [contrib.rocks](https://contrib.rocks/image?repo=heliomarpm/udemy-downloader-gui)
 
 <!-- 
 [![Contribuidores](https://contrib.nn.ci/api?repo=heliomarpm/udemy-downloader-gui&no_bot=true)](https://github.com/heliomarpm/udemy-downloader-gui/graphs/contributors)
